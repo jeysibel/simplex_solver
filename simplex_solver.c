@@ -92,7 +92,9 @@ void print_tableau_state(){
   }
 }
 
-
+/*
+*  Imprime o estado das variáveis com base no status corrente do tableau
+*/
 void print_tableau_variables(){
   
   printf("\n ===Tableau Variables after %i iterations: ===\t\t\t\n\n\t", iterations);
@@ -153,7 +155,9 @@ void print_tableau_variables(){
 
 }
 
-
+/*
+* Imprime as Equações a resolver conforme definido no método de setup
+*/
 void print_tableau_equations(){
 
   int qtyTerms =  qtyVariables + 1;
@@ -198,6 +202,10 @@ void print_tableau_equations(){
 
 }
 
+
+/*
+* Popula os nomes das colunas do tableau conforme definição de variáveis e normalização
+*/
 void populate_collumn_names(){
 
   int zbtermsSize=2;
@@ -241,6 +249,10 @@ void populate_collumn_names(){
   }
 }
 
+
+/*
+* Calcula a linha pivô a partir de um determinado indice do tableau 
+*/
 double * calculate_pivot_line( int lineIndex, int CollIndex){
 
   DEBUG_PRINT(( "\n\n//// CALC PIVOT LINE //// lineIndex: %i, CollIndex %i\n\n", lineIndex, CollIndex ));
@@ -259,7 +271,9 @@ double * calculate_pivot_line( int lineIndex, int CollIndex){
   return pivotLine;
 }
 
-
+/*
+* Calcula uma nova linha do tableau com base em uma linha pivô previamente calculada
+*/
 double * calculate_new_tableau_line( double *pivotLine, int lineIndex,  int CollIndex){
 
   DEBUG_PRINT(( "\n\n//// CALC NEW TABLEAU LINE //// lineIndex: %i, CollIndex %i\n\n", lineIndex, CollIndex ));
@@ -277,6 +291,9 @@ double * calculate_new_tableau_line( double *pivotLine, int lineIndex,  int Coll
   return  newLine;
 }
 
+/*
+* Verifica se o tableau encontra-se no estado de solução ótima encontrada
+*/ 
 bool achieve_optimal_solution(){
 
     bool isOptimalSolution = true;
@@ -291,12 +308,18 @@ bool achieve_optimal_solution(){
     return isOptimalSolution;
 }
 
+/*
+* Atualiza ponteiro de uma linha no tableau
+*/
 void update_tableau_line(double *line, int lineIndex){
 
   *(tableau + lineIndex) = line;
 
 }
 
+/*
+* subistiu o nome da linha adicionando o no da áriável de saída
+*/
 void update_line_names(int outterIndex, int innerIndex){
 
   DEBUG_PRINT(( "\n\n//// UPDATE LINE NAMES //// outterIndex: %i, InnerIndex %i\n\n", outterIndex, innerIndex ));
@@ -313,7 +336,9 @@ void update_line_names(int outterIndex, int innerIndex){
 
 }
 
-
+/*
+* Popula estado inicial dos nomes de linha do tableau
+*/
 void populate_line_names (){
 
   int qtyLines = qtySlackVariables;
@@ -341,6 +366,9 @@ void populate_line_names (){
 
 }
 
+/*
+* Popula os indices do tableau, conforme definido no setup do solver
+*/
 double ** populate_tableau(double *normalizedObjectiveFunction,double **normalizedRestrictions){
 
   int qtyLines = qtyLinesTableau;
@@ -354,14 +382,14 @@ double ** populate_tableau(double *normalizedObjectiveFunction,double **normaliz
       *(localTableau + i ) = *(normalizedRestrictions + (i-1));
     }
   }
-
-
   return localTableau; 
 
 }
 
+/*
+* Descobre qual será a váriavel de entrada na escolha da linha pivô
+*/
 int detect_inner_var(){
-
 
   DEBUG_PRINT(( "\n\n//// DETECT INNER VAR //// \n\n"));
 
@@ -385,6 +413,9 @@ int detect_inner_var(){
   return index;
 }
 
+/*
+* Descobre qual será a variável de de saída na escolha e cálculo da linha pivô
+*/
 int detect_outter_var( int innerIndex ){
 
   DEBUG_PRINT(( "\n\n//// DETECT OUTTER VAR //// innerIndex: %i\n\n", innerIndex ));
@@ -417,7 +448,9 @@ int detect_outter_var( int innerIndex ){
   return outterRowIndex;  
 }
 
-
+/*
+* Normaliza a função objetivo
+*/
 double * normalize_objective_function(double *rawObjectiveFunction){
 
   int qtyTerms = qtyCollumnsTableau;
@@ -444,6 +477,9 @@ double * normalize_objective_function(double *rawObjectiveFunction){
 
 }
 
+/*
+* Normaliza as restrições definidas no método de setup
+*/
 double ** normalize_restrictions(double **rawRestrictions){
 
   int qtyRules = qtyRestrictions;
@@ -486,6 +522,10 @@ double ** normalize_restrictions(double **rawRestrictions){
   return normalizedRestrictions;
 }
 
+
+/*
+* Inicia o processo de Solving per se.
+*/
 void solve(){
 
   print_tableau_equations();  
