@@ -4,7 +4,7 @@
  *  @author Jeysibel de Sousa Dantas
  *
  * Simplex Solver
- *    Solver do Método Simplex e Dual Simplex
+ *    Solver do Método Simplex 
  */
 
 #include <curses.h>
