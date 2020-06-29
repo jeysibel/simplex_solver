@@ -4,7 +4,7 @@
  *  @author Jeysibel de Sousa Dantas
  *
  * Simplex Solver
- *    Solver dos Métodos Simplex e Dual Simplex
+ *    Solver do Método Simplex
  */
 
 #include <curses.h>
@@ -842,10 +842,6 @@ int main(){
   }
 
   solve();
-   /* Code for further processing and free the  
-      dynamically allocated memory */
-    
-
 
   return 0;  
 } 
