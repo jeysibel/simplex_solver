@@ -4,9 +4,10 @@
  *  @author Jeysibel de Sousa Dantas
  *
  * Simplex Solver
- *    Solver do Método Simplex
+ *    Solver do Método Simplex e Dual Simplex
  */
 
+#include <curses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
