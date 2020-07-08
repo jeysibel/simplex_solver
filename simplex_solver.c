@@ -264,6 +264,9 @@ double * calculate_pivot_line( int lineIndex, int CollIndex){
     double oldValue = *(currentLine + i);
     double newValue = oldValue / pivot;
     *(pivotLine + i) = newValue;
+    if((newValue < 0.000000 && newValue > 0.0) || (newValue > -0.000000 && newValue < 0.0) ){
+      newValue = 0.0;
+    } 
 
     DEBUG_PRINT(( "\n i: %i, oldValue: %f, pivot: %f, newValue: %f  \n", i, oldValue, pivot, newValue ));  
   }
@@ -285,6 +288,9 @@ double * calculate_new_tableau_line( double *pivotLine, int lineIndex,  int Coll
     double pivotValue = *(pivotLine + i);
     double oldValue = *(currentLine + i);
     double newValue =  (pivotValue * invMultiplier) + oldValue;
+    if((newValue < 0.000000 && newValue > 0.0) || (newValue > -0.000000 && newValue < 0.0) ){
+      newValue = 0.0;
+    }
     *(newLine + i) = newValue;
     DEBUG_PRINT(( "\n @@@@ Computed new Value: %f / Original: %f / pivotValue: %f / InvMultiplier: %f  @@@@ \n\n", newValue, oldValue, pivotValue, invMultiplier ));
   }
@@ -704,7 +710,7 @@ void setup_test_model_simplex_3(){
   rawObjectiveFunction = malloc(sizeof(double *)*(qtyVariables +1));
   rawObjectiveFunction[0] = 0;
   rawObjectiveFunction[1] = 2;
-  rawObjectiveFunction[2] = 3;
+  rawObjectiveFunction[2] = 80;
 
 
 
